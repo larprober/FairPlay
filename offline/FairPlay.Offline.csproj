@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Offline build: compiles the real FairPlay sources against the reference stubs in ../stubs.
+
+    Purpose is to produce a FairPlay.dll on a machine with no Gorilla Tag install. The stubs carry
+    the same assembly names as the real Unity, BepInEx and Utilla assemblies, so the emitted
+    references resolve against the genuine ones at runtime.
+
+    This is a fallback. src/FairPlay.csproj, built against the real game assemblies, is the
+    authoritative build and the only one that can be verified.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>FairPlay</AssemblyName>
+    <RootNamespace>FairPlay</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>9.0</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+    <DebugType>portable</DebugType>
+    <NoWarn>CS1591</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\src\**\*.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\stubs\UnityEngine\UnityEngine.csproj" />
+    <ProjectReference Include="..\stubs\BepInEx\BepInEx.csproj" />
+    <ProjectReference Include="..\stubs\Utilla\Utilla.csproj" />
+  </ItemGroup>
+
+</Project>

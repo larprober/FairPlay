@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Reference-only stub of BepInEx.
+
+    It exists so FairPlay can be compiled on a machine with no Gorilla Tag install. It contains no
+    behaviour whatsoever - only the exact type and member signatures FairPlay touches, so the
+    compiler can emit the same assembly references the real thing would satisfy at runtime.
+
+    Never ship this. The real build (src/FairPlay.csproj) references the genuine assemblies.
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>BepInEx</AssemblyName>
+    <RootNamespace>BepInEx</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <AssemblyVersion>0.0.0.0</AssemblyVersion>
+    <FileVersion>0.0.0.0</FileVersion>
+    <NoWarn>CS0660;CS0661;CS0649;CS0067;CS1591</NoWarn>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="../UnityEngine/UnityEngine.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,26 @@
+# build output
+bin/
+obj/
+*.user
+*.suo
+*.userprefs
+
+# never commit game or framework assemblies
+lib/
+*.dll
+*.pdb
+!docs/**/*.dll
+
+# IDE
+.vs/
+.idea/
+.vscode/
+
+# packaging
+dist/
+*.zip
+
+# os
+Thumbs.db
+desktop.ini
+.DS_Store

@@ -1,0 +1,85 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>FairPlay</AssemblyName>
+    <RootNamespace>FairPlay</RootNamespace>
+    <Version>1.0.0</Version>
+    <LangVersion>9.0</LangVersion>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <DebugType>portable</DebugType>
+    <!-- Game assemblies are unversioned stubs; the binding-redirect noise is not actionable. -->
+    <NoWarn>CS0436;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <!--
+    Point the build at your Gorilla Tag install. Priority order:
+      1. the GORILLA_TAG_DIR environment variable
+      2. the default Steam path below
+    Override without editing this file:
+      dotnet build -c Release -p:GorillaTagDir="D:\Games\Gorilla Tag"
+  -->
+  <PropertyGroup>
+    <GorillaTagDir Condition="'$(GorillaTagDir)' == '' And '$(GORILLA_TAG_DIR)' != ''">$(GORILLA_TAG_DIR)</GorillaTagDir>
+    <GorillaTagDir Condition="'$(GorillaTagDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Gorilla Tag</GorillaTagDir>
+    <ManagedDir>$(GorillaTagDir)\Gorilla Tag_Data\Managed</ManagedDir>
+    <BepInExDir>$(GorillaTagDir)\BepInEx\core</BepInExDir>
+    <PluginsDir>$(GorillaTagDir)\BepInEx\plugins</PluginsDir>
+    <LibDir>$(MSBuildProjectDirectory)\..\lib</LibDir>
+  </PropertyGroup>
+
+  <!--
+    Utilla lands in a different folder depending on how it was installed, and a contributor without
+    the game can drop a copy in lib/ instead. Take whichever exists.
+  -->
+  <PropertyGroup>
+    <UtillaPath Condition="Exists('$(PluginsDir)\Utilla.dll')">$(PluginsDir)\Utilla.dll</UtillaPath>
+    <UtillaPath Condition="'$(UtillaPath)' == '' And Exists('$(PluginsDir)\Utilla\Utilla.dll')">$(PluginsDir)\Utilla\Utilla.dll</UtillaPath>
+    <UtillaPath Condition="'$(UtillaPath)' == '' And Exists('$(LibDir)\Utilla.dll')">$(LibDir)\Utilla.dll</UtillaPath>
+  </PropertyGroup>
+
+  <Target Name="VerifyGameDir" BeforeTargets="BeforeBuild">
+    <Error Condition="!Exists('$(ManagedDir)')"
+           Text="Could not find Gorilla Tag at '$(GorillaTagDir)'. Set GORILLA_TAG_DIR or pass -p:GorillaTagDir=&quot;...&quot;. See README.md, section Building." />
+    <Error Condition="!Exists('$(BepInExDir)\BepInEx.dll')"
+           Text="BepInEx is not installed in '$(GorillaTagDir)'. Install BepInEx 5.4.x (Monke Mod Manager does this for you) and launch the game once so it unpacks. See README.md, section Building." />
+    <Error Condition="'$(UtillaPath)' == ''"
+           Text="Utilla.dll not found in BepInEx\plugins or lib\. FairPlay gates every feature on Utilla and will not build without it." />
+  </Target>
+
+  <ItemGroup>
+    <!-- Modding framework -->
+    <Reference Include="BepInEx"   HintPath="$(BepInExDir)\BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony"  HintPath="$(BepInExDir)\0Harmony.dll" Private="false" />
+
+    <!-- Unity -->
+    <Reference Include="UnityEngine"                     HintPath="$(ManagedDir)\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule"          HintPath="$(ManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.PhysicsModule"       HintPath="$(ManagedDir)\UnityEngine.PhysicsModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(ManagedDir)\UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="UnityEngine.XRModule"            HintPath="$(ManagedDir)\UnityEngine.XRModule.dll" Private="false" />
+    <Reference Include="UnityEngine.InputLegacyModule"   HintPath="$(ManagedDir)\UnityEngine.InputLegacyModule.dll" Private="false" />
+
+
+    <!--
+      The game assembly is referenced so contributors can explore it, but no type from it is used
+      at compile time - everything goes through Utils/GameRefs.cs by reflection, so a rename in a
+      game update cannot break the build.
+    -->
+    <Reference Include="Assembly-CSharp" HintPath="$(ManagedDir)\Assembly-CSharp.dll" Private="false" />
+
+    <!-- Utilla owns the MODDED gamemode registration and the [ModdedGamemode] gate. -->
+    <Reference Include="Utilla" HintPath="$(UtillaPath)" Private="false" />
+  </ItemGroup>
+
+  <!-- Drop the built DLL straight into BepInEx/plugins. Skip with -p:DeployToGame=false -->
+  <PropertyGroup>
+    <DeployToGame Condition="'$(DeployToGame)' == ''">true</DeployToGame>
+  </PropertyGroup>
+
+  <Target Name="Deploy" AfterTargets="Build" Condition="'$(DeployToGame)' == 'true' And Exists('$(PluginsDir)')">
+    <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(PluginsDir)\FairPlay\" />
+    <Message Importance="high" Text="FairPlay -> $(PluginsDir)\FairPlay\$(TargetFileName)" />
+  </Target>
+
+</Project>

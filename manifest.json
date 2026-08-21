@@ -1,0 +1,9 @@
+{
+  "name": "FairPlay",
+  "version_number": "1.0.0",
+  "website_url": "https://github.com/larprober/FairPlay",
+  "description": "A mod menu that only works in modded lobbies, by construction. Self-only features, fully revertible.",
+  "dependencies": [
+    "dev_9_-Utilla-1.6.14"
+  ]
+}
