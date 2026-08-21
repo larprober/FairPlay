@@ -10,6 +10,7 @@
 [![Utilla](https://img.shields.io/badge/Utilla-1.6%2B-4FE3A1?style=flat-square)](https://github.com/legoandmars/Utilla)
 [![Language](https://img.shields.io/badge/C%23-netstandard2.1-8A93A6?style=flat-square)](#building)
 [![License](https://img.shields.io/badge/license-MIT-8A93A6?style=flat-square)](LICENSE)
+[![Discord](https://img.shields.io/badge/Discord-message%20me-5865F2?style=flat-square)](https://discord.com/users/889588153265037403)
 
 <img src="docs/assets/panel.svg" width="440" alt="The FairPlay slab">
 
