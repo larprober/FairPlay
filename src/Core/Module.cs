@@ -3,6 +3,8 @@ namespace FairPlay.Core
     public enum ModuleCategory
     {
         Movement,
+        /// <summary>Changes the shape of you, rather than where you go.</summary>
+        Body,
         Builder,
         Visual
     }
@@ -106,6 +108,13 @@ namespace FairPlay.Core
 
         /// <summary>Physics-step work. Only called while enabled and while the guard is green.</summary>
         public virtual void FixedTick() { }
+
+        /// <summary>
+        /// End-of-frame work, after Gorilla Tag has written the rig from controller tracking.
+        /// Anything repositioning hands or bones belongs here - do it in Tick and the game
+        /// overwrites you in the same frame.
+        /// </summary>
+        public virtual void LateTick() { }
 
         /// <summary>
         /// Restore every piece of game state this module changed. Called on disable, on leaving a

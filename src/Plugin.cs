@@ -40,6 +40,7 @@ namespace FairPlay
                 new AirplaneModule(),
                 new BubbleModule(),
                 new SizeModule(),
+                new LongArmsModule(),
                 new PlatformModule(),
                 new GrappleModule(),
                 new WaypointModule(),

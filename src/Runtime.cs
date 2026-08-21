@@ -47,6 +47,8 @@ namespace FairPlay
 
         private void FixedUpdate() => ModuleRegistry.FixedTick();
 
+        private void LateUpdate() => ModuleRegistry.LateTick();
+
         private void OnGateChanged(bool allowed)
         {
             if (!allowed) ModuleRegistry.DisableAll("gate closed");

@@ -73,6 +73,25 @@ namespace FairPlay.Core
             }
         }
 
+        public static void LateTick()
+        {
+            if (!LobbyGuard.Allowed) return;
+
+            _tickBuffer.Clear();
+            _tickBuffer.AddRange(_modules);
+
+            foreach (var module in _tickBuffer)
+            {
+                if (!module.Enabled) continue;
+                try { module.LateTick(); }
+                catch (System.Exception e)
+                {
+                    Plugin.Log.LogError($"Module {module.Name}.LateTick threw, disabling it: {e}");
+                    module.ForceOff();
+                }
+            }
+        }
+
         public static void FixedTick()
         {
             if (!LobbyGuard.Allowed) return;

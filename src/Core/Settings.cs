@@ -21,6 +21,7 @@ namespace FairPlay.Core
         public static ConfigEntry<float> FlySpeed        { get; private set; }
         public static ConfigEntry<float> SpeedMultiplier { get; private set; }
         public static ConfigEntry<float> JumpMultiplier  { get; private set; }
+        public static ConfigEntry<float> ArmLength       { get; private set; }
         public static ConfigEntry<float> GrappleForce    { get; private set; }
         public static ConfigEntry<int>   PlatformBudget  { get; private set; }
         public static ConfigEntry<float> PlatformLife    { get; private set; }
@@ -66,6 +67,12 @@ namespace FairPlay.Core
 
             JumpMultiplier = config.Bind("Movement", "JumpMultiplier", 1.7f,
                 new ConfigDescription("Jump strength multiplier for Bounce.", new AcceptableValueRange<float>(1f, 4f)));
+
+            ArmLength = config.Bind("Body", "ArmLength", 1.5f,
+                new ConfigDescription(
+                    "Reach multiplier for Long Arms. Modest by default on purpose - reach is tag " +
+                    "range, and tag range is the whole game.",
+                    new AcceptableValueRange<float>(1f, 4f)));
 
             GrappleForce = config.Bind("Builder", "GrappleForce", 12f,
                 new ConfigDescription("Pull speed of the grapple.", new AcceptableValueRange<float>(2f, 30f)));

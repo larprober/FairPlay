@@ -209,6 +209,7 @@ namespace FairPlay.Menu
         private void BuildPages()
         {
             AddCategoryPages("MOVE",  ModuleCategory.Movement);
+            AddCategoryPages("BODY",  ModuleCategory.Body);
             AddCategoryPages("BUILD", ModuleCategory.Builder);
             AddCategoryPages("LOOK",  ModuleCategory.Visual);
 

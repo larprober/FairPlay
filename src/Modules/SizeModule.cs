@@ -19,7 +19,7 @@ namespace FairPlay.Modules
     {
         public override string Name => "Size";
         public override string Description => "Press to cycle tiny to huge";
-        public override ModuleCategory Category => ModuleCategory.Movement;
+        public override ModuleCategory Category => ModuleCategory.Body;
 
         /// <summary>Index 0 is normal, which is also the "off" state.</summary>
         private static readonly float[] Steps = { 1f, 0.5f, 0.75f, 1.5f, 2f, 3f };
