@@ -66,13 +66,58 @@ namespace FairPlay.Utils
             {
                 if (_font != null) return _font;
 
-                // Unity 2021 renamed the built-in font; try both, then the OS.
-                _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf")
-                     ?? Resources.GetBuiltinResource<Font>("Arial.ttf")
-                     ?? Font.CreateDynamicFontFromOSFont("Arial", 48);
+                // Resources.GetBuiltinResource is largely an editor-side API and commonly returns
+                // null in a shipped player - which would leave the panel rendering as blank
+                // coloured bars with no labels at all. Hence four fallbacks, ending at fonts the
+                // game itself already loaded and then at the OS.
+                //
+                // The winner is logged. If text is missing in game, the log names the stage that
+                // failed instead of leaving you staring at an empty panel guessing why.
+                string source = "builtin LegacyRuntime";
+                _font = Resources.GetBuiltinResource<Font>("LegacyRuntime.ttf");
+
+                if (_font == null)
+                {
+                    source = "builtin Arial";
+                    _font = Resources.GetBuiltinResource<Font>("Arial.ttf");
+                }
+
+                if (_font == null)
+                {
+                    source = "font already loaded by the game";
+                    _font = FirstLoadedFont();
+                }
+
+                if (_font == null)
+                {
+                    source = "OS Arial";
+                    _font = Font.CreateDynamicFontFromOSFont("Arial", 48);
+                }
+
+                if (_font == null)
+                {
+                    source = "OS Segoe UI";
+                    _font = Font.CreateDynamicFontFromOSFont("Segoe UI", 48);
+                }
+
+                Plugin.Log.LogInfo(_font != null
+                    ? "Menu font resolved from: " + source
+                    : "Menu font: NONE FOUND - labels will render blank");
 
                 return _font;
             }
+        }
+
+        /// <summary>Any Font the game has already loaded, as a last resort before the OS.</summary>
+        private static Font FirstLoadedFont()
+        {
+            Font[] loaded = Resources.FindObjectsOfTypeAll<Font>();
+            if (loaded == null) return null;
+
+            foreach (Font font in loaded)
+                if (font != null) return font;
+
+            return null;
         }
 
         /// <summary>A flat panel. Colliders are stripped so the menu can never shove the player.</summary>

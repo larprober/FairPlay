@@ -40,8 +40,15 @@ namespace FairPlay.Modules
                 return;
             }
 
-            if (!Enabled) SetEnabled(true);
-            else Apply();
+            if (Enabled)
+            {
+                Apply();
+                return;
+            }
+
+            // A refused enable (gate shut) must not leave the row advertising a size that was
+            // never applied.
+            if (!SetEnabled(true)) _step = 0;
         }
 
         protected override void OnEnabled()

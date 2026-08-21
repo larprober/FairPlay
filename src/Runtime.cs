@@ -60,6 +60,7 @@ namespace FairPlay
         {
             ModuleRegistry.RevertAll();
             GravityLock.ForceRelease();
+            Modules.WaypointModule.Forget();
             GameRefs.Invalidate();
             XRInput.Invalidate();
 

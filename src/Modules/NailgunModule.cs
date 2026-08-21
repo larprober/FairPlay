@@ -29,8 +29,8 @@ namespace FairPlay.Modules
         {
             XRInput.Sample();
 
-            if (XRInput.TriggerDown(false)) Fire(false);
-            if (XRInput.TriggerDown(true)) Fire(true);
+            if (InputRouter.TryTriggerDown(false)) Fire(false);
+            if (InputRouter.TryTriggerDown(true)) Fire(true);
         }
 
         private void Fire(bool leftHand)
