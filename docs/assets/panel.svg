@@ -51,7 +51,4 @@
   <rect class="row" x="388" y="492" width="116" height="44" rx="10"/>
   <text class="t" x="446" y="521" font-size="17" fill="#EAEEF5" text-anchor="middle">MOVE</text>
 
-  <!-- fingertip dot on the Sprint row -->
-  <circle cx="330" cy="308" r="19" fill="#4FE3A1" opacity="0.2"/>
-  <circle cx="330" cy="308" r="10" fill="#4FE3A1"/>
 </svg>

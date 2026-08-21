@@ -16,6 +16,7 @@ namespace FairPlay.Core
         public static ConfigEntry<float>      MenuScale        { get; private set; }
         public static ConfigEntry<Vector3>    MenuOffset       { get; private set; }
         public static ConfigEntry<bool>       Haptics          { get; private set; }
+        public static ConfigEntry<bool>       ShowPointer      { get; private set; }
         public static ConfigEntry<KeyCode>    PanicKey         { get; private set; }
 
         public static ConfigEntry<float> FlySpeed        { get; private set; }
@@ -55,6 +56,11 @@ namespace FairPlay.Core
                 "panel clips into your controller model.");
 
             Haptics = config.Bind("Menu", "Haptics", true, "Buzz the controller on a button press.");
+
+            ShowPointer = config.Bind("Menu", "ShowPointer", false,
+                "Draw a dot at the fingertip used for press detection. Off by default - your hand " +
+                "is already visible. Turn it on if presses are not registering: the dot shows where " +
+                "the hit test actually happens, which is not always where your hand model appears.");
 
             PanicKey = config.Bind("Menu", "PanicKey", KeyCode.F8,
                 "Keyboard panic key: turns every module off and reverts. Handy while debugging on a flat screen.");

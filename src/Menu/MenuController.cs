@@ -107,10 +107,12 @@ namespace FairPlay.Menu
 
             // The dot follows the free hand, and vanishes with it. Leaving it parked at the last
             // tracked position reads as a stray bead floating in the map.
+            bool wantPointer = Settings.ShowPointer.Value && tip.HasValue;
+
             if (_pointer != null)
             {
                 if (tip.HasValue) _pointer.transform.position = tipWorld;
-                if (_pointer.activeSelf != tip.HasValue) _pointer.SetActive(tip.HasValue);
+                if (_pointer.activeSelf != wantPointer) _pointer.SetActive(wantPointer);
             }
 
             bool hovering = false;
