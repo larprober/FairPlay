@@ -140,6 +140,7 @@ namespace UnityEngine
     public static class Resources
     {
         public static T GetBuiltinResource<T>(string path) where T : Object => default;
+        public static T[] FindObjectsOfTypeAll<T>() => default;
     }
 
     public class Collider : Component

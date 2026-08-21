@@ -46,8 +46,10 @@ namespace FairPlay.Modules
         {
             if (_shell == null) BuildShell();
 
-            Transform root = GameRefs.Root;
-            if (_shell != null && root != null) _shell.transform.position = root.position;
+            // Centred on the head, not the player root - the root sits at the monkey's feet, so
+            // anchoring there leaves you standing on top of the bubble instead of inside it.
+            Transform head = GameRefs.Head;
+            if (_shell != null && head != null) _shell.transform.position = head.position;
         }
 
         public override void FixedTick()

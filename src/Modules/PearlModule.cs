@@ -23,6 +23,9 @@ namespace FairPlay.Modules
         private const float MaxLife = 6f;
         private const float LandOffset = 0.6f;
 
+        /// <summary>How far in front of the hand the pearl appears, to clear your own collider.</summary>
+        private const float MuzzleOffset = 0.35f;
+
         private GameObject _pearl;
         private Vector3 _velocity;
         private float _spawned;
@@ -33,8 +36,8 @@ namespace FairPlay.Modules
 
             if (_pearl == null)
             {
-                if (XRInput.TriggerDown(false)) Throw(false);
-                else if (XRInput.TriggerDown(true)) Throw(true);
+                if (InputRouter.TryTriggerDown(false)) Throw(false);
+                else if (InputRouter.TryTriggerDown(true)) Throw(true);
                 return;
             }
 
@@ -55,7 +58,9 @@ namespace FairPlay.Modules
             Object.Destroy(_pearl.GetComponent<Collider>());
             Object.DontDestroyOnLoad(_pearl);
 
-            _pearl.transform.position = hand.position;
+            // Spawned clear of the body. Starting exactly at the hand lets the very first sweep
+            // hit your own collider, which teleports you to where you already stand.
+            _pearl.transform.position = hand.position + aim.normalized * MuzzleOffset;
             _pearl.transform.localScale = Vector3.one * 0.12f;
 
             var renderer = _pearl.GetComponent<Renderer>();

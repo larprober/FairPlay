@@ -20,6 +20,12 @@ namespace FairPlay.Modules
         /// <summary>Shared with <see cref="BeaconModule"/> so the marker can be drawn.</summary>
         public static Vector3? Saved { get; private set; }
 
+        /// <summary>
+        /// Dropped on a scene change. Coordinates do not survive one, and a stale waypoint means
+        /// Beacon plants a light column at a spot that no longer means anything.
+        /// </summary>
+        internal static void Forget() => Saved = null;
+
         private static bool MenuHandIsLeft => Settings.MenuHand.Value == Handedness.Left;
 
         public override void Tick()
