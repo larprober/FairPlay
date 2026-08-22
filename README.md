@@ -12,7 +12,7 @@
 [![License](https://img.shields.io/badge/license-MIT-8A93A6?style=flat-square)](LICENSE)
 [![Discord](https://img.shields.io/badge/Discord-message%20me-5865F2?style=flat-square)](https://discord.com/users/889588153265037403)
 
-<img src="docs/assets/panel.svg" width="440" alt="The FairPlay slab">
+<img src="docs/assets/panel.svg" width="480" alt="The FairPlay slab">
 
 </div>
 

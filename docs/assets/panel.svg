@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 668 580" width="668" height="580"
-     role="img" aria-label="The FairPlay slab: top panic bar, seven-row slab, page wings">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-10 -10 668 720" width="668" height="720"
+     role="img" aria-label="The FairPlay slab: top panic bar, six-row MOVE page, page wings">
   <style>
     .t     { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; }
     .slab  { fill: #1E212B; stroke: #2A2F3D; stroke-width: 1.5; }
@@ -13,31 +13,26 @@
     .wing  { font-size: 34px; fill: #EAEEF5; text-anchor: middle; }
   </style>
 
-  <!-- top bar: the panic switch, deliberately off on its own -->
   <rect class="slab" x="184" y="0" width="280" height="60" rx="12" stroke="#FF5C5C"/>
   <text class="t" x="324" y="38" font-size="19" fill="#FF5C5C" text-anchor="middle" letter-spacing="2">ALL OFF</text>
 
-  <!-- page wings -->
-  <rect class="slab" x="0"   y="170" width="96" height="300" rx="14"/>
-  <text class="t wing" x="48"  y="332">&#60;</text>
-  <rect class="slab" x="552" y="170" width="96" height="300" rx="14"/>
-  <text class="t wing" x="600" y="332">&#62;</text>
+  <rect class="slab" x="0"   y="242" width="96" height="300" rx="14"/>
+  <text class="t wing" x="48"  y="404">&#60;</text>
+  <rect class="slab" x="552" y="242" width="96" height="300" rx="14"/>
+  <text class="t wing" x="600" y="404">&#62;</text>
 
-  <!-- slab: 200 mm wide, height sized to the page (4 rows here), drawn at 2 px per mm -->
-  <rect x="124" y="84" width="400" height="472" rx="18" fill="#14161C" stroke="#2A2F3D" stroke-width="2"/>
+  <rect x="124" y="84" width="400" height="616" rx="18" fill="#14161C" stroke="#2A2F3D" stroke-width="2"/>
 
-  <!-- header -->
-  <text class="t" x="324" y="144" font-size="25" font-weight="700" fill="#EAEEF5"
+  <text class="t" x="324" y="142" font-size="25" font-weight="700" fill="#EAEEF5"
         text-anchor="middle" letter-spacing="2">FAIRPLAY</text>
-  <text class="t muted" x="324" y="180" text-anchor="middle" letter-spacing="1">FPS 72    2 ACTIVE</text>
+  <text class="t muted" x="324" y="179" text-anchor="middle">FPS 72    2 ACTIVE</text>
   <rect x="416" y="117" width="88" height="34" rx="9" fill="#4FE3A1"/>
   <text class="t" x="460" y="140" font-size="14" font-weight="700" fill="#0B1A14" text-anchor="middle">MODDED</text>
 
-  <!-- rows -->
   <rect class="rowOn" x="144" y="204" width="360" height="64" rx="10"/>
   <text class="t lbl" x="164" y="244">Flight</text><text class="t valOn" x="484" y="243">ON</text>
 
-  <rect class="rowHi" x="144" y="276" width="360" height="64" rx="10"/>
+  <rect class="row" x="144" y="276" width="360" height="64" rx="10"/>
   <text class="t lbl" x="164" y="316">Sprint</text><text class="t val" x="484" y="315">OFF</text>
 
   <rect class="row" x="144" y="348" width="360" height="64" rx="10"/>
@@ -46,9 +41,13 @@
   <rect class="rowOn" x="144" y="420" width="360" height="64" rx="10"/>
   <text class="t lbl" x="164" y="460">Phase</text><text class="t valOn" x="484" y="459">ON</text>
 
-  <!-- bottom strip: hovered description on the left, page name on the right -->
-  <text class="t muted" x="144" y="520">Faster arm-swing travel</text>
-  <rect class="row" x="388" y="492" width="116" height="44" rx="10"/>
-  <text class="t" x="446" y="521" font-size="17" fill="#EAEEF5" text-anchor="middle">MOVE</text>
+  <rect class="rowHi" x="144" y="492" width="360" height="64" rx="10"/>
+  <text class="t lbl" x="164" y="532">Airplane</text><text class="t val" x="484" y="531">OFF</text>
 
+  <rect class="row" x="144" y="564" width="360" height="64" rx="10"/>
+  <text class="t lbl" x="164" y="604">Bubble</text><text class="t val" x="484" y="603">OFF</text>
+
+  <text class="t muted" x="144" y="664">T-pose to fly where you look</text>
+  <rect class="row" x="388" y="636" width="116" height="44" rx="10"/>
+  <text class="t" x="446" y="665" font-size="17" fill="#EAEEF5" text-anchor="middle">MOVE</text>
 </svg>
